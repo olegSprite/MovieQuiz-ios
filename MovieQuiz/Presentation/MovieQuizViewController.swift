@@ -20,14 +20,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        if let firstQuestion = questionFactory.requestNextQuestion() {
-//            currentQuestion = firstQuestion
-//            let viewModel = convert(model: firstQuestion)
-//            show(quiz: viewModel)
-//        }
-        questionFactory.requestNextQuestion()
-        questionFactory.delegate = self
+        questionFactory = QuestionFactory()
+        questionFactory?.delegate = self
+        questionFactory?.requestNextQuestion()
         
     }
     
@@ -94,7 +89,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             show(quiz: viewModel)
         } else {
             currentQuestionIndex += 1
-            self.questionFactory.requestNextQuestion()
+            self.questionFactory?.requestNextQuestion()
         }
     }
     
@@ -109,7 +104,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
-            questionFactory.requestNextQuestion()
+            questionFactory?.requestNextQuestion()
         }
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
