@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class AlertPresetor {
+final class ResultAlertPresenter {
     
     private weak var viewController: UIViewController?
     
@@ -29,5 +29,4 @@ final class AlertPresetor {
         alert.addAction(action)
         viewController?.present(alert, animated: true)
     }
-    
 }

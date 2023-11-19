@@ -8,9 +8,9 @@ final class StatisticService: StatisticServiceProtocol {
         case correct, total, bestGame, gamesCount
     }
     
-        var totalAccuracy: Double {
-           Double(correct) / Double(total) * 100
-        }
+    var totalAccuracy: Double {
+        Double(correct) / Double(total) * 100
+    }
     
     var gamesCount: Int {
         get {
@@ -69,6 +69,6 @@ final class StatisticService: StatisticServiceProtocol {
             }
         } else {
             bestGame = currentBestGame
-            }
         }
     }
+}
