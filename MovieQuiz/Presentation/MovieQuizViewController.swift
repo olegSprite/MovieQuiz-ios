@@ -23,14 +23,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
-//        questionFactory?.delegate = self
         alertPresenter = ResultAlertPresenter(viewController: self)
         statisticServie = StatisticService()
-        
         showLoadingIndicator()
         questionFactory?.loadData()
-        
-//        questionFactory?.requestNextQuestion()
     }
     
     // MARK: - QuestionFactoryDelegate
@@ -51,7 +47,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         activityIndicator.isHidden = true
         questionFactory?.requestNextQuestion()
     }
-
+    
     func didFailToLoadData(with error: Error) {
         showNetworkError(message: error.localizedDescription)
     }
@@ -142,16 +138,15 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             message: message,
             buttonText: "Попробовать еще раз") { [weak self] in
                 guard let self = self else { return }
-                        
-                        self.currentQuestionIndex = 0
-                        self.correctAnswers = 0
-                        
-                        self.questionFactory?.requestNextQuestion()
                 
-                // TODO: Повторная попытка загрузки
+                self.currentQuestionIndex = 0
+                self.correctAnswers = 0
+                
+                self.showLoadingIndicator()
+                self.questionFactory?.loadData()
             }
         alertPresenter?.show(alertModel: model)
-        }
+    }
     
     // MARK: - Actions
     
