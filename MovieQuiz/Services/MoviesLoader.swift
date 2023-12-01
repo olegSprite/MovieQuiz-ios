@@ -29,6 +29,5 @@ struct MoviesLoader: MoviesLoading {
                 handler(.failure(error))
             }
         }
-        
     }
 }
