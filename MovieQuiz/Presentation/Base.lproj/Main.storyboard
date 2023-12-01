@@ -47,7 +47,7 @@
                                     </stackView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E7g-Mo-QoH" userLabel="Preview Image">
                                         <rect key="frame" x="0.0" y="43.5" width="374" height="561"/>
-                                        <color key="backgroundColor" name="YP White"/>
+                                        <color key="backgroundColor" name="YP Black"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="E7g-Mo-QoH" secondAttribute="height" multiplier="2:3" id="Koj-zM-43F"/>
                                         </constraints>
@@ -57,7 +57,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма меньше, чем 5?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uuz-Sz-9Fl" userLabel="Question Label">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uuz-Sz-9Fl" userLabel="Question Label">
                                         <rect key="frame" x="0.0" y="624.5" width="374" height="99.5"/>
                                         <fontDescription key="fontDescription" name="YSDisplay-Bold" family="YS Display" pointSize="23"/>
                                         <color key="textColor" name="YP White"/>
@@ -107,10 +107,15 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="fkS-4Z-bFe">
+                                <rect key="frame" x="188.5" y="363.5" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Background"/>
                         <constraints>
+                            <constraint firstItem="fkS-4Z-bFe" firstAttribute="centerX" secondItem="E7g-Mo-QoH" secondAttribute="centerX" id="Bmx-ik-00Q"/>
+                            <constraint firstItem="fkS-4Z-bFe" firstAttribute="centerY" secondItem="E7g-Mo-QoH" secondAttribute="centerY" id="CHN-C7-OQN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WQ4-Ft-2vk" secondAttribute="trailing" constant="20" id="GPh-Mw-QbI"/>
                             <constraint firstItem="WQ4-Ft-2vk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="QQc-Cv-Cwl"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="WQ4-Ft-2vk" secondAttribute="bottom" id="WwP-6U-qb5"/>
@@ -118,6 +123,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="fkS-4Z-bFe" id="2ma-KR-IZm"/>
                         <outlet property="counterLabel" destination="UrF-TG-IAa" id="77c-Ih-nhC"/>
                         <outlet property="imageView" destination="E7g-Mo-QoH" id="I9R-Pp-FDa"/>
                         <outlet property="noButton" destination="8T7-oC-c9H" id="NFF-xq-08E"/>
