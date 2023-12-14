@@ -28,6 +28,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         statisticServie = StatisticService()
         showLoadingIndicator()
         questionFactory?.loadData()
+        presenter.viewController = self
     }
     
     // MARK: - QuestionFactoryDelegate
@@ -70,7 +71,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         textLable.text = step.question
     }
     
-    private func showAnswerResult(isCorrect: Bool) {
+    func showAnswerResult(isCorrect: Bool) {
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 10
         imageView.layer.cornerRadius = 15
@@ -152,18 +153,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     // MARK: - Actions
     
     @IBAction private func yesButtonClicked(_ sender: Any) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        let givenAnswer = true
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        presenter.currentQuestion = currentQuestion
+        presenter.yesButtonClicked()
     }
     
     @IBAction private func noButtonClicked(_ sender: Any) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        let givenAnswer = false
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        presenter.currentQuestion = currentQuestion
+        presenter.noButtonClicked()
     }
 }
