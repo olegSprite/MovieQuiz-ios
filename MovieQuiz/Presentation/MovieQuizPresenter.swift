@@ -70,7 +70,7 @@ final class MovieQuizPresenter {
         }
     }
     
-    private func showNextQuestionOrResults() {
+    func showNextQuestionOrResults() {
         if self.isLastQuestion() {
              viewController?.show()
         } else {
