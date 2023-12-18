@@ -1,7 +1,7 @@
 import UIKit
 
 
-final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
+final class MovieQuizViewController: UIViewController {
     
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var counterLabel: UILabel!
@@ -11,40 +11,42 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
 //    private let questionsAmount: Int = 10
-    private var questionFactory: QuestionFactory?
+//    private var questionFactory: QuestionFactory?
     private var currentQuestion: QuizQuestion?
 //    private var currentQuestionIndex = 0
 //    private var correctAnswers = 0
     private var alertPresenter: ResultAlertPresenter?
     private var statisticServie: StatisticServiceProtocol?
-    private let presenter = MovieQuizPresenter()
+//    private var presenter = MovieQuizPresenter()
+    private var presenter: MovieQuizPresenter!
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+//        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+        presenter = MovieQuizPresenter(viewController: self)
         alertPresenter = ResultAlertPresenter(viewController: self)
         statisticServie = StatisticService()
         showLoadingIndicator()
-        questionFactory?.loadData()
-        presenter.viewController = self
+        presenter.questionFactory?.loadData()
+//        presenter.viewController = self
     }
     
-    // MARK: - QuestionFactoryDelegate
-    
-    func didReceiveNextQuestion(question: QuizQuestion?) {
-        presenter.didReceiveNextQuestion(question: question)
-    }
-    
-    func didLoadDataFromServer() {
-        activityIndicator.isHidden = true
-        questionFactory?.requestNextQuestion()
-    }
-    
-    func didFailToLoadData(with error: Error) {
-        showNetworkError(message: error.localizedDescription)
-    }
+//    // MARK: - QuestionFactoryDelegate
+//    
+//    func didReceiveNextQuestion(question: QuizQuestion?) {
+//        presenter.didReceiveNextQuestion(question: question)
+//    }
+//    
+//    func didLoadDataFromServer() {
+//        activityIndicator.isHidden = true
+//        questionFactory?.requestNextQuestion()
+//    }
+//    
+//    func didFailToLoadData(with error: Error) {
+//        showNetworkError(message: error.localizedDescription)
+//    }
     
     // MARK: - Private functions
     
@@ -75,7 +77,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             guard let self = self else { return }
             
 //            self.presenter.correctAnswers = self.correctAnswers
-            self.presenter.questionFactory = self.questionFactory
+//            self.presenter.questionFactory = self.questionFactory
             self.presenter.showNextQuestionOrResults()
             self.imageView.layer.borderWidth = 0
             self.yesButton.isEnabled = true
@@ -113,17 +115,21 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             buttonAction: { [weak self] in
                 self?.presenter.restartGame()
 //                self?.correctAnswers = 0
-                self?.questionFactory?.requestNextQuestion()
+//                self?.questionFactory?.requestNextQuestion()
             })
         alertPresenter?.show(alertModel: alertModel)
     }
     
-    private func showLoadingIndicator() {
+    func showLoadingIndicator() {
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
     
-    private func showNetworkError(message: String) {
+    func hideLoadingIndicator() {
+            activityIndicator.isHidden = true
+        }
+    
+    func showNetworkError(message: String) {
         
         activityIndicator.isHidden = true
         
@@ -137,7 +143,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 //                self.correctAnswers = 0
                 
                 self.showLoadingIndicator()
-                self.questionFactory?.loadData()
+                self.presenter.questionFactory?.loadData()
             }
         alertPresenter?.show(alertModel: model)
     }
