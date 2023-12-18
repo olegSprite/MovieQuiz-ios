@@ -17,8 +17,8 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     var correctAnswers = 0
     var questionFactory: QuestionFactory?
     
-    init(viewController: MovieQuizViewController) {
-            self.viewController = viewController
+    init(viewController: MovieQuizViewControllerProtocol) {
+        self.viewController = viewController as? MovieQuizViewController
             
             questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
             questionFactory?.loadData()
@@ -67,7 +67,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             if isCorrectAnswer { correctAnswers += 1 }
         }
         
-    private func convert(model: QuizQuestion) -> QuizStepViewModel {
+    func convert(model: QuizQuestion) -> QuizStepViewModel {
             let questionStep = QuizStepViewModel(
                 image: UIImage(data: model.image) ?? UIImage(),
                 question: model.text,
