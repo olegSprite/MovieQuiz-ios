@@ -91,7 +91,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             
             let givenAnswer = isYes
             
-            viewController?.showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+            proceedWithAnswer(isCorrect: givenAnswer == currentQuestion.correctAnswer)
         }
         
 //        func didReceiveNextQuestion(question: QuizQuestion?) {
@@ -106,12 +106,24 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
 //            }
 //        }
         
-        func showNextQuestionOrResults() {
+        func proceedToNextQuestionOrResults() {
             if self.isLastQuestion() {
                 viewController?.show()
             } else {
                 self.switchToNextQuestion()
                 self.questionFactory?.requestNextQuestion()
+            }
+        }
+    
+    func proceedWithAnswer(isCorrect: Bool) {
+            didAnswer(isCorrectAnswer: isCorrect)
+            
+            viewController?.highlightImageBorder(isCorrectAnswer: isCorrect)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                guard let self = self else { return }
+                self.proceedToNextQuestionOrResults()
+                self.viewController?.hideImageBorder()
             }
         }
     }

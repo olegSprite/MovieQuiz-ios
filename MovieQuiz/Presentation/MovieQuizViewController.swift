@@ -65,25 +65,37 @@ final class MovieQuizViewController: UIViewController {
         textLable.text = step.question
     }
     
-    func showAnswerResult(isCorrect: Bool) {
-        imageView.layer.masksToBounds = true
-        imageView.layer.borderWidth = 10
-        imageView.layer.cornerRadius = 15
-        imageView.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
-        presenter.didAnswer(isCorrectAnswer: isCorrect)
-        yesButton.isEnabled = false
-        noButton.isEnabled = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            guard let self = self else { return }
-            
-//            self.presenter.correctAnswers = self.correctAnswers
-//            self.presenter.questionFactory = self.questionFactory
-            self.presenter.showNextQuestionOrResults()
-            self.imageView.layer.borderWidth = 0
-            self.yesButton.isEnabled = true
-            self.noButton.isEnabled = true
+//    func showAnswerResult(isCorrect: Bool) {
+//        imageView.layer.masksToBounds = true
+//        imageView.layer.borderWidth = 10
+//        imageView.layer.cornerRadius = 15
+//        imageView.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
+//        presenter.didAnswer(isCorrectAnswer: isCorrect)
+//        yesButton.isEnabled = false
+//        noButton.isEnabled = false
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+//            guard let self = self else { return }
+//            
+////            self.presenter.correctAnswers = self.correctAnswers
+////            self.presenter.questionFactory = self.questionFactory
+//            self.presenter.showNextQuestionOrResults()
+//            self.imageView.layer.borderWidth = 0
+//            self.yesButton.isEnabled = true
+//            self.noButton.isEnabled = true
+//        }
+//    }
+    
+    func highlightImageBorder(isCorrectAnswer: Bool) {
+            imageView.layer.masksToBounds = true
+            imageView.layer.borderWidth = 8
+            imageView.layer.borderColor = isCorrectAnswer ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
         }
+    
+    func hideImageBorder() {
+        imageView.layer.borderWidth = 0
     }
+    
+    
     
 //    private func showNextQuestionOrResults() {
 //        if presenter.isLastQuestion() {
