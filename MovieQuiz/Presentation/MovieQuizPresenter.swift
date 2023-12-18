@@ -23,13 +23,18 @@ final class MovieQuizPresenter {
             currentQuestionIndex == questionsAmount - 1
         }
         
-        func resetQuestionIndex() {
+        func restartGame() {
             currentQuestionIndex = 0
+            correctAnswers = 0
         }
         
         func switchToNextQuestion() {
             currentQuestionIndex += 1
         }
+    
+    func didAnswer(isCorrectAnswer: Bool) {
+        if isCorrectAnswer { correctAnswers += 1 }
+    }
 
     func convert(model: QuizQuestion) -> QuizStepViewModel {
         let questionStep = QuizStepViewModel(
